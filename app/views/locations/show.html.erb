@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Address:</b>
+  <%= @location.address %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @location.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @location.longitude %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @location.user_id %>
+</p>
+
+<div id="collection">
+	<% @pictures.each do |pic| %>
+	<div id="picture"><%= image_tag pic.images.low_resolution.url %></div>
+	<% end %>
+</div>
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>
