@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TestApp</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <title>The Amazing Instagram GeoSearch App | Built By Max Miller</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+<div id="container">
+	<div id="user_nav">
+	<% if session[:user_id] %>
+	<% user = User.find(session[:user_id]) %>
+		You are logged in as <%= user.username %>. 
+		<%= link_to 'Edit Account', edit_user_path %>
+		<%= link_to 'Logout', logout_path, method: :delete %>
+	<% end %>
+	</div>
+	<%= yield %>
+</div>
 </body>
 </html>

@@ -1,8 +1,29 @@
 TestApp::Application.routes.draw do
-  resources :users 
 
-  resources :locations
+  get '/users/:user_id/locations/:id' => 'locations#show', :as => 'user_location'
+  post '/users/:user_id/locations/' => 'locations#create', :as => 'create_user_location'
+  delete '/users/:user_id/locations/:id' => 'locations#destroy', :as => 'destroy_location'
+
+  get 'users/:user_id' => 'users#show', :as => 'user'
+  get 'users/new' => 'users#new', :as => 'new_user'
+  get 'users/:user_id/edit' => 'users#edit', :as => 'edit_user'
+  post 'users' => 'users#create'
+  put 'users/:user_id' => 'users#update'
+  delete 'users/:user_id' =>'users#destroy'
   
+  controller :sessions do 
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
+  
+  root to: 'sessions#new'
+
+  # resources :users do
+  #   resources :locations
+  # end
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

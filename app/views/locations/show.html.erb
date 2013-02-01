@@ -1,30 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<div id="side">
 <p>
-  <b>Address:</b>
-  <%= @location.address %>
+  <b>Saved Locations:</b>
+  <ul>
+    <% @saved_locations.each do |l| %>
+    <li><%= link_to l.address, user_location_path(@user, l.id) %></li>
+    <% end %>
+  </ul>
+  <%= link_to 'Back', user_path(@user) %>
 </p>
+</div>
 
-<p>
-  <b>Latitude:</b>
-  <%= @location.latitude %>
-</p>
 
-<p>
-  <b>Longitude:</b>
-  <%= @location.longitude %>
-</p>
 
-<p>
-  <b>User:</b>
-  <%= @location.user_id %>
-</p>
-
-<div id="collection">
+<div id="main">
+<h2><%= @location.address %> | <%= link_to 'Delete Location', destroy_location_path(@location.user_id, @location), method: :delete, data: { confirm: 'Are you sure?' } %></h2>
 	<% @pictures.each do |pic| %>
 	<div id="picture"><%= image_tag pic.images.low_resolution.url %></div>
 	<% end %>
 </div>
 
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
+

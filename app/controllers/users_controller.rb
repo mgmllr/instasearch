@@ -1,19 +1,12 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.order(:username)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
-  end
 
   # GET /users/1
   # GET /users/1.json
+  
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
+    @saved_locations = Location.find_all_by_user_id(params[:user_id])
+    @location = Location.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +27,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
   # POST /users
@@ -44,8 +37,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url,
-          notice: "User #{@user.username} was successfully created." }
+        format.html { redirect_to login_url,
+          notice: "User #{@user.username} was successfully created. Now please log in." }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -57,11 +50,11 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to users_url,
+        format.html { redirect_to user_url,
           notice: "User #{@user.username} was successfully updated." }
         format.json { head :no_content }
       else
@@ -74,12 +67,25 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
     @user.destroy
+    session[:user_id] = nil
 
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to login_url }
       format.json { head :no_content }
     end
   end
 end
+
+
+  # GET /users
+  # GET /users.json
+  # def index
+  #   @users = User.order(:username)
+
+  #   respond_to do |format|
+  #     format.html # index.html.erb
+  #     format.json { render json: @users }
+  #   end
+  # end

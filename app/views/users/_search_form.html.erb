@@ -1,0 +1,15 @@
+<%= form_tag create_user_location_path(@user) do %>
+
+<fieldset>
+  <legend>Where would you like to search?</legend>
+  <div class="field">
+    <%= label_tag :address %><br />
+    <%= text_field_tag :address %>
+  </div>
+  
+  <div class="actions">
+    <%= submit_tag "Create Location" %>
+  </div>
+</fieldset>
+
+<% end %>

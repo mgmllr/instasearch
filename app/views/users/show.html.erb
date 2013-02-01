@@ -1,15 +1,17 @@
 <p id="notice"><%= notice %></p>
 
+<div id="side">
 <p>
-  <b>Username:</b>
-  <%= @user.username %>
+  <b>Saved Locations:</b>
+  <ul>
+  	<% @saved_locations.each do |l| %>
+  	<li><%= link_to l.address, user_location_path(@user, l.id) %></li>
+  	<% end %>
+  </ul>
 </p>
+</div>
 
-<p>
-  <b>Password:</b>
-  <%= @user.password %>
-</p>
-
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div id="main">
+<h2>Welcome <%= @user.username %>!</h2>
+<%= render 'search_form' %>
+</div>
